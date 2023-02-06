@@ -56,7 +56,7 @@ const Project = () => {
                     value={samples.coverLetter}
                 /> <br /> <br />
 
-                <label>Location/Country: </label>
+                <label>Location/Country:</label>
                 <input
                     type="text"
                     value={samples.location}
