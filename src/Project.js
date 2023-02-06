@@ -40,8 +40,6 @@ const Project = () => {
     setSamples([]);
   };
 
-  const resetScreen = () => {};
-
   const clearThisEntry = (item, index) => {
     let details = JSON.parse(localStorage.getItem("MyJobDetails")) || [];
     details.splice(index, 1);
@@ -65,7 +63,7 @@ const Project = () => {
   return (
     <div className="App">
     <div>
-      <form id="myform" onSubmit={savedContent} onReset={resetScreen}>
+      <form id="myform" onSubmit={savedContent}>
         <label>Job name:</label>
         <input
           type="text"
