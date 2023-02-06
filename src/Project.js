@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import "./Project.css";
 
 const Project = () => {
-    const [samples, setSamples] = useState(JSON.parse(localStorage.getItem("MyJobDetails")) || []);
+  const [samples, setSamples] = useState(
+    JSON.parse(localStorage.getItem("MyJobDetails")) || []
+  );
 
     const savedContent = (e) => {
         e.preventDefault(); //To prevent the default event from occuring
@@ -26,11 +28,16 @@ const Project = () => {
         // resetForm({ details: '' })
     }
 
-
     const changeStatus = (e) => {
         let value = e.target.value;
         document.getElementById("updateHere").innerHTML = value;
     }
+
+  const clearSavedData = () => {
+    document.getElementById("myform").reset();
+    localStorage.setItem("MyJobDetails", JSON.stringify([]));
+    setSamples([]);
+  };
 
     return (
         <div className="App">
@@ -49,14 +56,13 @@ const Project = () => {
                     type="file"
                     value={samples.cv}
                 /> <br /> <br />
-
                 <label>Cover Letter: </label>
                 <input
                     type="file"
                     value={samples.coverLetter}
                 /> <br /> <br />
 
-                <label>Location/Country:</label>
+                <label>Location/Country: </label>
                 <input
                     type="text"
                     value={samples.location}
@@ -86,7 +92,7 @@ const Project = () => {
                     type="submit"
                     id="btn"
                     value={samples.saveButton}
-                    onClick={() => setSamples(() => samples)}
+                    onClick={() => setSamples(samples)}
                 >SAVE</button>
 
                 {/* <tr>
@@ -97,33 +103,43 @@ const Project = () => {
                         <td id="updateHere">{samples.status}</td>
                         <td>{samples.applicationDate}</td>
                     </tr> */}
-
                 <table>
                     <thead>
                         <tr>
-                            <th>Job Name</th>
-                            <th>CV</th>
-                            <th>Cover Letter</th>
-                            <th>Country</th>
-                            <th>Status</th>
-                            <th>Application Date</th>
+                        <th>Sr. No</th>
+                        <th>Job Name</th>
+                        <th>CV</th>
+                        <th>Cover Letter</th>
+                        <th>Country</th>
+                        <th>Status</th>
+                        <th>Application Date</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {samples?.map((sample) => (
-                            <tr>
-                                <td>{sample.jobName}</td>
-                                <td>{sample.cv}</td>
-                                <td>{sample.coverLetter}</td>
-                                <td>{sample.location}</td>
-                                <td>{sample.status}</td>
-                                <td>{sample.applicationDate}</td>
-                            </tr>
+                        {samples?.map((sample, index) => (
+                        <tr key={String(index)}>
+                            <td>{String(index + 1)}</td>
+                            <td>{sample.jobName}</td>
+                            <td>{sample.cv}</td>
+                            <td>{sample.coverLetter}</td>
+                            <td>{sample.location}</td>
+                            <td>{sample.status}</td>
+                            <td>{sample.applicationDate}</td>
+                        </tr>
                         ))}
                     </tbody>
                 </table>
+                <button
+                style={{ marginTop: 20 }}
+                type="reset"
+                id="btn"
+                value={samples.saveButton}
+                onClick={clearSavedData}
+                >
+                CLEAR ALL
+                </button>
             </form>
-        </div >
+        </div>
     )
 }
 
